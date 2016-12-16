@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Library</string>
+    <string name="video_preview">预览</string>
+    <string name="no_video">找不到指定的视频</string>
+    <string name="play_error">视频播放失败</string>
+    <string name="choose">选择</string>
+
+</resources>
