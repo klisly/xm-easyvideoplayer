@@ -197,7 +197,59 @@ public class VideoPlayerActivity extends AppCompatActivity implements SurfaceHol
             return;
         }
         preview.setVisibility(View.VISIBLE);
+        preview.setAlpha(0.2f);
+        preview.animate()
+                .alpha(1f)
+                .setDuration(300)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                })
+                .start();
         playButton.setVisibility(View.VISIBLE);
+        playButton.setAlpha(0.2f);
+        playButton.animate()
+                .alpha(1f)
+                .setDuration(300)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                })
+                .start();
     }
 
     private void onPausePlay() {
@@ -207,7 +259,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements SurfaceHol
 
     private void onstartPlay() {
         preview.animate()
-                .alpha(0.8f)
+                .alpha(0.0f)
                 .setDuration(300)
                 .setListener(new Animator.AnimatorListener() {
                     @Override
@@ -373,5 +425,4 @@ public class VideoPlayerActivity extends AppCompatActivity implements SurfaceHol
         }
         return bitmap;
     }
-
 }
