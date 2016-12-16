@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -142,7 +141,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements SurfaceHol
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                Bitmap bm = ThumbnailUtils.createVideoThumbnail(src.getPath(), MediaStore.Images.Thumbnails.MINI_KIND);
+                Bitmap bm = createVideoThumbnail(src.getPath(), MediaStore.Images.Thumbnails.MINI_KIND);
                 if (bm != null) {
                     mHandler.obtainMessage(BITMAP_LOADED, bm).sendToTarget();
                 }
@@ -192,60 +191,13 @@ public class VideoPlayerActivity extends AppCompatActivity implements SurfaceHol
 
     private void onCompletePlay() {
         Log.i(TAG, "curl pos:" + mediaPlayer.getCurrentPosition() + " duration:" + mediaPlayer.getDuration());
-        preview.setAlpha(0.2f);
-        preview.animate()
-                .alpha(1.0f)
-                .setDuration(600)
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        preview.setVisibility(View.INVISIBLE);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                })
-                .start();
-
-
-        playButton.setAlpha(0.2f);
-        playButton.animate()
-                .alpha(1.0f)
-                .setDuration(600)
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        playButton.setVisibility(View.INVISIBLE);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                })
-                .start();
+        if(mediaPlayer.getDuration() == 0){
+            Toast.makeText(this, R.string.play_error, Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+        preview.setVisibility(View.VISIBLE);
+        playButton.setVisibility(View.VISIBLE);
     }
 
     private void onPausePlay() {
@@ -254,11 +206,39 @@ public class VideoPlayerActivity extends AppCompatActivity implements SurfaceHol
     }
 
     private void onstartPlay() {
+        preview.animate()
+                .alpha(0.8f)
+                .setDuration(300)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        sv.setBackgroundDrawable(null);
+                        preview.setVisibility(View.INVISIBLE);
+                        preview.setAlpha(1.0f);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                })
+                .start();
         if (mediaPlayer != null) {
             mediaPlayer.start();
             playButton.setVisibility(View.INVISIBLE);
             return;
         }
+
         try {
 
             mediaPlayer = new MediaPlayer();
@@ -271,33 +251,6 @@ public class VideoPlayerActivity extends AppCompatActivity implements SurfaceHol
                 @Override
                 public void onPrepared(MediaPlayer mp) {
                     playButton.setVisibility(View.INVISIBLE);
-                    preview.animate()
-                            .alpha(0.8f)
-                            .setDuration(300)
-                            .setListener(new Animator.AnimatorListener() {
-                                @Override
-                                public void onAnimationStart(Animator animation) {
-
-                                }
-
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-                                    sv.setBackgroundDrawable(null);
-                                    preview.setVisibility(View.INVISIBLE);
-                                    preview.setAlpha(1.0f);
-                                }
-
-                                @Override
-                                public void onAnimationCancel(Animator animation) {
-
-                                }
-
-                                @Override
-                                public void onAnimationRepeat(Animator animation) {
-
-                                }
-                            })
-                            .start();
                     mediaPlayer.start();
 
                 }

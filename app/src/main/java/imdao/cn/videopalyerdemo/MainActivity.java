@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        uri=Uri.fromFile(new File("/sdcard/movie.mp4"));
-        findViewById(R.id.pick).setOnClickListener(new View.OnClickListener() {
+        uri=Uri.fromFile(new File("/storage/emulated/0/DCIM/Camera/VID_20161107_121820.mp4"));
+        findViewById(R.id.open).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, VideoPlayerActivity.class);
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.open).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.pick).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, VideoPlayerActivity.class);
