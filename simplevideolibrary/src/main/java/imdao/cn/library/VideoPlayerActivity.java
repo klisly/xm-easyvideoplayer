@@ -200,7 +200,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements SurfaceHol
         preview.setAlpha(0.2f);
         preview.animate()
                 .alpha(1f)
-                .setDuration(300)
+                .setDuration(600)
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
